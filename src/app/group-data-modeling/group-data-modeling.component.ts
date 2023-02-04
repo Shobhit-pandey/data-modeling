@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ModelData } from 'src/interface';
 import { NzModalService } from 'ng-zorro-antd/modal';
-import { timeout } from 'rxjs';
+import { NzCarouselComponent } from 'ng-zorro-antd/carousel';
 
 @Component({
   selector: 'app-group-data-modeling',
@@ -9,6 +9,10 @@ import { timeout } from 'rxjs';
   styleUrls: ['./group-data-modeling.component.scss'],
 })
 export class GroupDataModelingComponent implements OnInit {
+
+  @ViewChild(NzCarouselComponent, { static: false })
+  dataModelCarousel!: NzCarouselComponent;
+  currentDataSelectedIndex = 0;
   listOfModels: ModelData[] = [
     {
       label: 'Bell Pepper',
@@ -103,9 +107,10 @@ export class GroupDataModelingComponent implements OnInit {
         this.modalService.info({
           nzTitle: 'Data Modeling Tutorial',
           nzContent: 'Scroll for Zoom and Click and Drag for Pan',
-          nzOkText: 'OK',
+          nzOkText: 'Got it',
           nzClosable: false,
           nzCancelText: null,
+          nzCentered:true,
           nzOnOk: () => {
             this.setTutotialStatus();
           },
@@ -118,5 +123,16 @@ export class GroupDataModelingComponent implements OnInit {
     if (this.listOfSelectedModels.length == 0 && this.showTutorial) {
       this.showTutorialModal();
     }
+  }
+
+  dataIndexChanged(event: any){
+    this.currentDataSelectedIndex = event;
+  }
+
+  goToNextModel(){
+    this.dataModelCarousel.next()
+  }
+  goToPreviousModel(){
+    this.dataModelCarousel.pre()
   }
 }

@@ -22,6 +22,8 @@ export class DataModelingComponent implements OnInit, AfterViewInit, OnChanges {
 
   @Input() public modelPath!: string;
 
+  @Input() public stylePosition: 'absolute' | 'unset' = 'absolute';
+
   //* Stage Properties
   @Input() public fieldOfView: number = 20;
 
@@ -52,6 +54,8 @@ export class DataModelingComponent implements OnInit, AfterViewInit, OnChanges {
 
   private renderer!: THREE.WebGLRenderer;
 
+  private childRenderer!: THREE.WebGLRenderer;
+
   private scene!: THREE.Scene;
 
   /**
@@ -73,13 +77,12 @@ export class DataModelingComponent implements OnInit, AfterViewInit, OnChanges {
    * @memberof ModelComponent
    */
   private createControls = () => {
-    const renderer = new THREE.WebGLRenderer({ antialias: true });
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.domElement.style.position = 'absolute';
-    // renderer.domElement.style.height = 'hidden';
-    renderer.domElement.style.top = '15vh';
-    document.body.appendChild(renderer.domElement);
-    this.controls = new OrbitControls(this.camera, renderer.domElement);
+    this.childRenderer = new THREE.WebGLRenderer({ antialias: true });
+    this.childRenderer.setSize(window.innerWidth, window.innerHeight);
+    this.childRenderer.domElement.style.position = this.stylePosition;
+    this.childRenderer.domElement.style.top = '15vh';
+    document.body.appendChild(this.childRenderer.domElement);
+    this.controls = new OrbitControls(this.camera, this.childRenderer.domElement);
     this.controls.autoRotate = false;
     this.controls.enableZoom = true;
     this.controls.enablePan = true;
@@ -172,6 +175,9 @@ export class DataModelingComponent implements OnInit, AfterViewInit, OnChanges {
   ngOnChanges(): void {
     const fileNameSplit = this.modelPath.split('/');
     this.fileName = fileNameSplit[fileNameSplit.length - 1];
+    if(this.controls){
+      this.childRenderer.domElement.style.position = this.stylePosition;
+    }
   }
 
   ngAfterViewInit() {

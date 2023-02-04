@@ -25,18 +25,48 @@
     </nz-page-header-extra>
     <nz-page-header-content>
       <nz-carousel
-        [nzEffect]="'scrollx'"
+        #dataModelCarousel
+        [nzEffect]="'fade'"
+        [nzEnableSwipe]="true"
+        (nzAfterChange)="dataIndexChanged($event)"
         *ngIf="listOfSelectedModels.length > 0"
       >
         <div
           nz-carousel-content
           *ngFor="let modelPath of listOfSelectedModels; let index = index"
         >
+          <button
+            nz-button
+            style="margin-left: 35vw;"
+            nzType="primary"
+            (click)="goToPreviousModel()"
+            [nzSize]="'default'"
+            nzShape="round"
+          >
+            <span nz-icon nzType="arrow-left"></span>
+            Previous
+          </button>
+
+          <button
+            nz-button
+            style="margin-left: 2vw;"
+            nzType="primary"
+            (click)="goToNextModel()"
+            [nzSize]="'default'"
+            nzShape="round"
+          >
+            <span nz-icon nzType="arrow-right"></span>
+            Next
+          </button>
+
           <app-data-modeling
             [modelPath]="modelPath.value"
             [fieldOfView]="modelPath.fieldOfView"
             [farClipping]="modelPath.farClipping"
             [nearClipping]="modelPath.nearClipping"
+            [stylePosition]="
+              index == currentDataSelectedIndex ? 'absolute' : 'unset'
+            "
           ></app-data-modeling>
         </div>
       </nz-carousel>
@@ -45,15 +75,6 @@
         nzNotFoundContent="No Model Selected"
         *ngIf="listOfSelectedModels.length == 0"
       ></nz-empty>
-      <!-- <nz-descriptions nzSize="small" [nzColumn]="3">
-          <nz-descriptions-item nzTitle="Created" [nzSpan]="1">Lili Qu</nz-descriptions-item>
-          <nz-descriptions-item nzTitle="Association" [nzSpan]="1"><a>421421</a></nz-descriptions-item>
-          <nz-descriptions-item nzTitle="Creation Time" [nzSpan]="1">2017-01-10</nz-descriptions-item>
-          <nz-descriptions-item nzTitle="Effective Time" [nzSpan]="1">2017-10-10</nz-descriptions-item>
-          <nz-descriptions-item nzTitle="Remarks" [nzSpan]="2">
-            Gonghu Road, Xihu District, Hangzhou, Zhejiang, China
-          </nz-descriptions-item>
-        </nz-descriptions> -->
     </nz-page-header-content>
   </nz-page-header>
 </div>
