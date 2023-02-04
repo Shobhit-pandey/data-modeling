@@ -34,7 +34,7 @@
         >
           <div
             nz-carousel-content
-            *ngFor="let modelPath of listOfSelectedModels; let index = index"
+            *ngFor="let modelPath of listOfSelectedModels.reverse(); let index = index"
           >
             <ng-container *ngIf="listOfSelectedModels.length > 1">
               <span

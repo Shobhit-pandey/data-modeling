@@ -21,6 +21,7 @@ import { NzEmptyModule } from 'ng-zorro-antd/empty';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzSwitchModule } from 'ng-zorro-antd/switch';
 import { CombineDataModelingComponent } from './combine-data-modeling/combine-data-modeling.component';
+import { NzSpinModule } from 'ng-zorro-antd/spin';
 
 registerLocaleData(en);
 
@@ -44,7 +45,8 @@ registerLocaleData(en);
     NzIconModule,
     NzEmptyModule,
     NzModalModule,
-    NzSwitchModule
+    NzSwitchModule,
+    NzSpinModule
   ],
   providers: [{ provide: NZ_I18N, useValue: en_US }],
   bootstrap: [AppComponent],

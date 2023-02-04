@@ -1,10 +1,15 @@
-<ng-container *ngIf="modelPathList.length>0">
-    <!-- <a [href]="modelPath" [download]="fileName">
-      <button nz-button nzType="primary" nzShape="round">
-        <span nz-icon nzType="download"></span>
-        Download
-      </button>
-    </a> -->
-    <canvas #canvas id="canvas" style="height: 80vh; width: 100vw"></canvas>
-  </ng-container>
-  
+<ng-container *ngIf="modelPathList.length > 0">
+  <a
+    *ngIf="glbDownloadUrl"
+    [href]="glbDownloadUrl"
+    [download]="'3d_data_modeling.glb'"
+  >
+    <button nz-button nzType="primary" nzShape="round">
+      <span nz-icon nzType="download"></span>
+      Download
+    </button>
+  </a>
+  <canvas #canvas id="canvas" style="height: 80vh; width: 100vw"></canvas>
+</ng-container>
+
+<nz-spin *ngIf="!glbDownloadUrl" class="spin" style="text-align: center;" nzSimple [nzSize]="'large'"></nz-spin>

@@ -11,7 +11,9 @@ import * as THREE from 'three';
 import { ModelData } from 'src/interface';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { GLTF, GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
+import { GLTFExporter } from 'three/examples/jsm/exporters/GLTFExporter';
 import { Object3D } from 'three';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-combine-data-modeling',
@@ -31,7 +33,7 @@ export class CombineDataModelingComponent
 
   @Input('farClipping') public farClippingPane: number = 2000;
 
-  constructor() {}
+  constructor(private sanitizer: DomSanitizer) {}
 
   ngOnInit(): void {}
 
@@ -66,6 +68,10 @@ export class CombineDataModelingComponent
 
   private scene!: THREE.Scene;
 
+  private exporter = new GLTFExporter();
+
+  glbDownloadUrl:SafeUrl | undefined;
+
   /**
    *Animate the model
    *
@@ -73,11 +79,11 @@ export class CombineDataModelingComponent
    * @memberof ModelComponent
    */
   private animateModel() {
-    this.models.forEach((model: Object3D) => {
-      if (model) {
-        model.rotation.z += 0.005;
-      }
-    });
+    // this.models.forEach((model: Object3D) => {
+    //   if (model) {
+    //     model.rotation.z += 0.005;
+    //   }
+    // });
   }
 
   /**
@@ -100,6 +106,7 @@ export class CombineDataModelingComponent
     this.controls.enableZoom = true;
     this.controls.enablePan = true;
     this.controls.update();
+    this.downloadDataModel()
   };
 
   /**
@@ -192,5 +199,14 @@ export class CombineDataModelingComponent
       component.animateModel();
       requestAnimationFrame(render);
     })();
+  }
+
+  downloadDataModel(){
+    this.exporter.parse(this.scene, (gltf)=>{
+      console.log(gltf);
+      let theJSON = JSON.stringify(gltf);
+      let uri = this.sanitizer.bypassSecurityTrustUrl("data:text/json;charset=UTF-8," + encodeURIComponent(theJSON));
+      this.glbDownloadUrl = uri;
+    },(error)=>{})
   }
 }

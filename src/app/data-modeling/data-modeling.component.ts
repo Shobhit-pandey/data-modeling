@@ -6,7 +6,6 @@ import {
   ViewChild,
   ElementRef,
   OnChanges,
-  SimpleChanges,
 } from '@angular/core';
 import * as THREE from 'three';
 import { GLTFLoader, GLTF } from 'three/examples/jsm/loaders/GLTFLoader.js';
@@ -65,9 +64,9 @@ export class DataModelingComponent implements OnInit, AfterViewInit, OnChanges {
    * @memberof ModelComponent
    */
   private animateModel() {
-    if (this.model) {
-      this.model.rotation.z += 0.005;
-    }
+    // if (this.model) {
+    //   this.model.rotation.z += 0.005;
+    // }
   }
 
   /**
@@ -88,7 +87,7 @@ export class DataModelingComponent implements OnInit, AfterViewInit, OnChanges {
     this.controls.enablePan = true;
     this.controls.update();
   };
-
+  
   /**
    * Create the scene
    *
