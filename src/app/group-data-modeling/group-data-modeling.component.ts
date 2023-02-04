@@ -13,6 +13,7 @@ export class GroupDataModelingComponent implements OnInit {
   @ViewChild(NzCarouselComponent, { static: false })
   dataModelCarousel!: NzCarouselComponent;
   currentDataSelectedIndex = 0;
+  combineDataModel:boolean = false;
   listOfModels: ModelData[] = [
     {
       label: 'Bell Pepper',

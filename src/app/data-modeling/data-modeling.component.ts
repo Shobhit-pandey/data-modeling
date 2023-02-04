@@ -102,7 +102,7 @@ export class DataModelingComponent implements OnInit, AfterViewInit, OnChanges {
     this.loaderGLTF.load(this.modelPath, (gltf: GLTF) => {
       this.model = gltf.scene.children[0];
       console.log(this.model);
-      var box = new THREE.Box3().setFromObject(this.model);
+      const box = new THREE.Box3().setFromObject(this.model);
       box.getCenter(this.model.position); // this re-sets the mesh position
       this.model.position.multiplyScalar(-1);
       this.scene.add(this.model);

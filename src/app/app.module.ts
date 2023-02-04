@@ -19,6 +19,8 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzEmptyModule } from 'ng-zorro-antd/empty';
 import { NzModalModule } from 'ng-zorro-antd/modal';
+import { NzSwitchModule } from 'ng-zorro-antd/switch';
+import { CombineDataModelingComponent } from './combine-data-modeling/combine-data-modeling.component';
 
 registerLocaleData(en);
 
@@ -27,6 +29,7 @@ registerLocaleData(en);
     AppComponent,
     DataModelingComponent,
     GroupDataModelingComponent,
+    CombineDataModelingComponent,
   ],
   imports: [
     BrowserModule,
@@ -41,6 +44,7 @@ registerLocaleData(en);
     NzIconModule,
     NzEmptyModule,
     NzModalModule,
+    NzSwitchModule
   ],
   providers: [{ provide: NZ_I18N, useValue: en_US }],
   bootstrap: [AppComponent],

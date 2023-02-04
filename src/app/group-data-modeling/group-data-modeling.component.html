@@ -24,52 +24,67 @@
       >
     </nz-page-header-extra>
     <nz-page-header-content>
-      <nz-carousel
-        #dataModelCarousel
-        [nzEffect]="'fade'"
-        [nzEnableSwipe]="true"
-        (nzAfterChange)="dataIndexChanged($event)"
-        *ngIf="listOfSelectedModels.length > 0"
-      >
-        <div
-          nz-carousel-content
-          *ngFor="let modelPath of listOfSelectedModels; let index = index"
+      <ng-container *ngIf="!combineDataModel">
+        <nz-carousel
+          #dataModelCarousel
+          [nzEffect]="'fade'"
+          [nzEnableSwipe]="true"
+          (nzAfterChange)="dataIndexChanged($event)"
+          *ngIf="listOfSelectedModels.length > 0 && !combineDataModel"
         >
-          <button
-            nz-button
-            style="margin-left: 35vw;"
-            nzType="primary"
-            (click)="goToPreviousModel()"
-            [nzSize]="'default'"
-            nzShape="round"
+          <div
+            nz-carousel-content
+            *ngFor="let modelPath of listOfSelectedModels; let index = index"
           >
-            <span nz-icon nzType="arrow-left"></span>
-            Previous
-          </button>
+            <ng-container *ngIf="listOfSelectedModels.length > 1">
+              <span
+                >Combine Model
+                <nz-switch [(ngModel)]="combineDataModel"></nz-switch
+              ></span>
+              <button
+                nz-button
+                style="margin-left: 25vw"
+                nzType="primary"
+                (click)="goToPreviousModel()"
+                [nzSize]="'default'"
+                nzShape="round"
+              >
+                <span nz-icon nzType="arrow-left"></span>
+                Previous
+              </button>
 
-          <button
-            nz-button
-            style="margin-left: 2vw;"
-            nzType="primary"
-            (click)="goToNextModel()"
-            [nzSize]="'default'"
-            nzShape="round"
-          >
-            <span nz-icon nzType="arrow-right"></span>
-            Next
-          </button>
+              <button
+                nz-button
+                style="margin-left: 2vw"
+                nzType="primary"
+                (click)="goToNextModel()"
+                [nzSize]="'default'"
+                nzShape="round"
+              >
+                <span nz-icon nzType="arrow-right"></span>
+                Next
+              </button>
+            </ng-container>
 
-          <app-data-modeling
-            [modelPath]="modelPath.value"
-            [fieldOfView]="modelPath.fieldOfView"
-            [farClipping]="modelPath.farClipping"
-            [nearClipping]="modelPath.nearClipping"
-            [stylePosition]="
-              index == currentDataSelectedIndex ? 'absolute' : 'unset'
-            "
-          ></app-data-modeling>
+            <app-data-modeling
+              [modelPath]="modelPath.value"
+              [fieldOfView]="modelPath.fieldOfView"
+              [farClipping]="modelPath.farClipping"
+              [nearClipping]="modelPath.nearClipping"
+              [stylePosition]="
+                index == currentDataSelectedIndex ? 'absolute' : 'unset'
+              "
+            ></app-data-modeling>
+          </div>
+        </nz-carousel>
+      </ng-container>
+      <ng-container *ngIf="combineDataModel">
+        <div style="margin-bottom: 1vw" *ngIf="listOfSelectedModels.length > 1">
+          Combine Model <nz-switch [(ngModel)]="combineDataModel"></nz-switch>
         </div>
-      </nz-carousel>
+        <app-combine-data-modeling [modelPathList]="listOfSelectedModels">
+        </app-combine-data-modeling>
+      </ng-container>
       <nz-empty
         class="empty-state"
         nzNotFoundContent="No Model Selected"
