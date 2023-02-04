@@ -1,1 +1,9 @@
-<p>data-modeling works!</p>
+<ng-container *ngIf="modelPath">
+  <a [href]="modelPath" [download]="fileName">
+    <button nz-button nzType="primary" nzShape="round">
+      <span nz-icon nzType="download"></span>
+      Download
+    </button>
+  </a>
+  <canvas #canvas [id]="modelPath" style="height: 80vh; width: 100vw"></canvas>
+</ng-container>

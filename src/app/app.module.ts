@@ -11,24 +11,38 @@ import en from '@angular/common/locales/en';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NzPageHeaderModule } from 'ng-zorro-antd/page-header';
+import { NzSelectModule } from 'ng-zorro-antd/select';
+import { GroupDataModelingComponent } from './group-data-modeling/group-data-modeling.component';
+import { NzCarouselModule } from 'ng-zorro-antd/carousel';
+import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzIconModule } from 'ng-zorro-antd/icon';
+import { NzEmptyModule } from 'ng-zorro-antd/empty';
+import { NzModalModule } from 'ng-zorro-antd/modal';
 
 registerLocaleData(en);
 
 @NgModule({
   declarations: [
     AppComponent,
-    DataModelingComponent
+    DataModelingComponent,
+    GroupDataModelingComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    NzPageHeaderModule,
+    NzSelectModule,
+    NzCarouselModule,
+    NzButtonModule,
+    NzIconModule,
+    NzEmptyModule,
+    NzModalModule,
   ],
-  providers: [
-    { provide: NZ_I18N, useValue: en_US }
-  ],
-  bootstrap: [AppComponent]
+  providers: [{ provide: NZ_I18N, useValue: en_US }],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
